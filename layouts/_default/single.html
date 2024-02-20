@@ -12,9 +12,18 @@
 <content>
   {{ .Content }}
 </content>
+<br>
 <p>
+  {{ range (.GetTerms "categories") }}
+  Category: <a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+  {{ end }}
+</p>
+{{ if .GetTerms "tags" }}
+<p>
+  Tags:
   {{ range (.GetTerms "tags") }}
   <a href="{{ .Permalink }}">#{{ .LinkTitle }}</a>
   {{ end }}
 </p>
+{{ end }}
 {{ end }}
