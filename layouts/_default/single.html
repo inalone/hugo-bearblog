@@ -1,18 +1,28 @@
 {{ define "main" }}
-{{ if eq .Type "posts" }}{{ if not .Params.menu }}
+{{ if or (eq .Type "posts") (eq .Type "lists") }}{{ if not .Params.menu }}
 <h1>{{ .Title }}</h1>
 <p>
   <i>
+    {{ if eq .Type "posts" }}
     <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate>
       {{ .Date.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
     </time>
+    {{ end }}
+    {{ if eq .Type "lists" }}
+    Last modified:
+    <time datetime='{{ .Lastmod.Format "2006-01-02" }}' pubdate>
+      {{ .Lastmod.Format (default "02 Jan, 2006" .Site.Params.dateFormat) }}
+    </time>
+    {{ end }}
   </i>
 </p>
 {{ end }}{{ end }}
+{{ if eq .Type "lists" }}
+{{ end }}
 <content>
   {{ .Content }}
 </content>
-<br>
+<hr>
 <p>
   {{ range (.GetTerms "categories") }}
   Category: <a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
