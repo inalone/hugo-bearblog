@@ -24,8 +24,9 @@
 </content>
 <hr>
 <p>
+  Category:
   {{ range (.GetTerms "categories") }}
-  Category: <a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+  <a href="{{ .Permalink }}">{{ .LinkTitle }}</a>
   {{ end }}
 </p>
 {{ if .GetTerms "tags" }}
